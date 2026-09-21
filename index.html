@@ -1,0 +1,864 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>ZINZY — Graphic Designer / Photographer</title>
+    <meta
+      name="description"
+      content="ZINZY — graphic design and photography archive."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Playfair+Display:ital,wght@0,500;0,700;1,500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --black: #08090c;
+        --paper: #f2f0ea;
+        --blue: #315cff;
+        --line: #16171b;
+        --mono: "DM Mono", monospace;
+        --sans: "DM Sans", Arial, sans-serif;
+        --serif: "Playfair Display", serif;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--black);
+        font-family: var(--sans);
+        overflow-x: hidden;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      button {
+        font: inherit;
+      }
+      ::selection {
+        background: var(--blue);
+        color: white;
+      }
+      .nav {
+        position: fixed;
+        z-index: 30;
+        top: 0;
+        width: 100%;
+        padding: 23px 30px;
+        display: flex;
+        justify-content: space-between;
+        mix-blend-mode: multiply;
+      }
+      .logo {
+        font-weight: 700;
+        font-size: 1.1rem;
+        letter-spacing: -0.06em;
+      }
+      .links {
+        display: flex;
+        gap: 22px;
+        font: 10px var(--mono);
+      }
+      .links a:hover {
+        color: var(--blue);
+      }
+      .hero {
+        min-height: 100vh;
+        padding: 124px 30px 30px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        position: relative;
+      }
+      .hero-copy {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .small {
+        font: 10px var(--mono);
+        letter-spacing: 0.07em;
+      }
+      .hero h1 {
+        font-size: clamp(5.8rem, 14vw, 15rem);
+        line-height: 0.76;
+        letter-spacing: -0.11em;
+        margin: 0 0 0 -9px;
+      }
+      .hero h1 span,
+      .tag {
+        color: var(--blue);
+      }
+      .role {
+        font: 500 clamp(14px, 1.5vw, 20px)/1.2 var(--mono);
+        margin-bottom: 2vh;
+      }
+      .hero-art {
+        min-height: 64vh;
+        background:
+          linear-gradient(110deg, #091226 3%, transparent 38%),
+          url("zinzy1.jpg") center/cover;
+        clip-path: polygon(16% 0, 100% 0, 100% 85%, 77% 100%, 0 100%, 0 16%);
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-slide {
+        position: absolute;
+        inset: 0;
+        background: center / cover no-repeat;
+        opacity: 0;
+        transform: scale(1.04);
+        transition:
+          opacity 1s ease-in-out,
+          transform 6s ease-out;
+      }
+      .hero-slide.active {
+        opacity: 1;
+        transform: scale(1);
+      }
+      .hero-art:after {
+        content: "Z";
+        font: 700 64vw/0.8 var(--serif);
+        font-style: italic;
+        color: #ffffff27;
+        position: absolute;
+        right: -12vw;
+        bottom: -20vw;
+        z-index: 1;
+        pointer-events: none;
+      }
+      .hero-foot {
+        position: absolute;
+        left: 30px;
+        right: 30px;
+        bottom: 30px;
+        display: flex;
+        justify-content: space-between;
+      }
+      .intro {
+        padding: 21vh 30px 17vh;
+        background: var(--black);
+        color: var(--paper);
+        position: relative;
+      }
+      .intro h2 {
+        font: 500 clamp(3rem, 8vw, 9.5rem)/0.9 var(--serif);
+        letter-spacing: -0.08em;
+        margin: 0;
+      }
+      .intro em {
+        color: #8298ff;
+      }
+      .note {
+        position: absolute;
+        right: 30px;
+        bottom: 40px;
+        width: 205px;
+        font: 10px/1.55 var(--mono);
+        color: #bbb;
+      }
+      .worlds {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+      .world {
+        min-height: 80vh;
+        padding: 32px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        overflow: hidden;
+      }
+      .world:before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-position: center;
+        background-size: cover;
+        transition: 0.8s;
+      }
+      .world:hover:before {
+        transform: scale(1.06);
+      }
+      .world > * {
+        position: relative;
+      }
+      .gd {
+        background: #081337;
+        color: #fff;
+      }
+      .gd:before {
+        background-image:
+          linear-gradient(0deg, #000c, transparent), url("zinzy2.jpg");
+      }
+      .ph {
+        background: #ddd;
+      }
+      .ph:before {
+        background-image:
+          linear-gradient(0deg, #fffc, transparent), url("photo1.jpg");
+      }
+      .number {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        font: 10px var(--mono);
+      }
+      .world h2 {
+        font-size: clamp(3rem, 6vw, 7rem);
+        line-height: 0.8;
+        letter-spacing: -0.09em;
+        margin: 0 0 18px;
+      }
+      .world p {
+        font: 10px/1.5 var(--mono;);
+        max-width: 250px;
+      }
+      .go {
+        font: 10px var(--mono);
+        margin-top: 23px;
+      }
+      .go:after {
+        content: " ↗";
+        font-size: 20px;
+      }
+      .top {
+        padding: 120px 30px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+      }
+      .top h2 {
+        font-size: clamp(3.5rem, 9vw, 10rem);
+        line-height: 0.78;
+        letter-spacing: -0.1em;
+        margin: 6px 0 0;
+      }
+      .top p {
+        font: 10px/1.5 var(--mono);
+        max-width: 260px;
+      }
+      .design {
+        background: var(--black);
+        color: white;
+      }
+      .archive {
+        padding: 0 30px 115px;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 16px;
+      }
+      .piece {
+        padding: 0;
+        border: 0;
+        background: #222;
+        position: relative;
+        cursor: pointer;
+        overflow: hidden;
+        color: white;
+        text-align: left;
+      }
+      .piece img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: 0.7s;
+      }
+      .piece:hover img {
+        transform: scale(1.06);
+      }
+      .meta {
+        position: absolute;
+        bottom: 13px;
+        left: 14px;
+        opacity: 0;
+        font: 10px var(--mono);
+        transition: 0.25s;
+        text-shadow: 0 1px 4px #000;
+      }
+      .piece:hover .meta {
+        opacity: 1;
+      }
+      .d1 {
+        grid-column: span 7;
+        aspect-ratio: 1.35;
+      }
+      .d2 {
+        grid-column: span 5;
+        aspect-ratio: 0.95;
+      }
+      .d3 {
+        grid-column: 2 / span 4;
+        aspect-ratio: 0.72;
+        margin-top: 8vw;
+      }
+      .d4 {
+        grid-column: 6 / span 7;
+        aspect-ratio: 1.45;
+        margin-top: 3vw;
+      }
+      .d5 {
+        grid-column: span 8;
+        aspect-ratio: 1.5;
+      }
+      .d6 {
+        grid-column: span 4;
+        aspect-ratio: 0.83;
+        margin-top: -5vw;
+      }
+      .photo .top {
+        padding-top: 145px;
+      }
+      .photo h2 {
+        font-family: var(--serif);
+        font-style: italic;
+      }
+      .p1 {
+        grid-column: span 8;
+        aspect-ratio: 1.5;
+      }
+      .p2 {
+        grid-column: span 4;
+        aspect-ratio: 0.68;
+        margin-top: 9vw;
+      }
+      .p3 {
+        grid-column: span 5;
+        aspect-ratio: 0.75;
+      }
+      .p4 {
+        grid-column: 7 / span 6;
+        aspect-ratio: 1.6;
+        margin-top: 6vw;
+      }
+      .p5 {
+        grid-column: 2 / span 10;
+        aspect-ratio: 1.7;
+        margin-top: 5vw;
+      }
+      .feed {
+        padding: 80px 30px 100px;
+        border-top: 1px solid #aaa;
+      }
+      .feed.dark {
+        background: #101a38;
+        color: #fff;
+        border: 0;
+      }
+      .feedhead {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        margin-bottom: 35px;
+      }
+      .feed h2 {
+        font-size: clamp(2.2rem, 5vw, 5.5rem);
+        line-height: 0.84;
+        letter-spacing: -0.07em;
+        margin: 7px 0;
+      }
+      .follow {
+        font: 10px var(--mono);
+        border-bottom: 1px solid;
+        padding-bottom: 5px;
+      }
+      .track {
+        display: flex;
+        gap: 14px;
+        overflow: auto;
+        scroll-snap-type: x mandatory;
+      }
+      .post {
+        flex: 0 0 min(285px, 72vw);
+        aspect-ratio: 1;
+        position: relative;
+        overflow: hidden;
+        scroll-snap-align: start;
+      }
+      .post img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: 0.5s;
+      }
+      .post:hover img {
+        transform: scale(1.06);
+      }
+      .post span {
+        position: absolute;
+        bottom: 12px;
+        left: 12px;
+        color: white;
+        font: 9px var(--mono);
+        text-shadow: 0 1px 3px #000;
+      }
+      .disclaimer {
+        font: 9px/1.5 var(--mono);
+        opacity: 0.65;
+        max-width: 500px;
+        margin-top: 25px;
+      }
+      .about {
+        background: #dbe0ec;
+        padding: 150px 30px;
+        min-height: 75vh;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+      }
+      .about h2 {
+        font-size: clamp(4rem, 10vw, 11rem);
+        line-height: 0.77;
+        letter-spacing: -0.1em;
+        margin: 0;
+      }
+      .about p {
+        align-self: end;
+        max-width: 500px;
+        font: clamp(1.35rem, 2.2vw, 2.3rem)/1.1 var(--serif);
+        letter-spacing: -0.04em;
+      }
+      .about small {
+        display: block;
+        font: 10px/1.5 var(--mono);
+        margin-top: 40px;
+      }
+      .contact {
+        background: var(--blue);
+        color: #fff;
+        min-height: 85vh;
+        padding: 12vw 30px 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .contact h2 {
+        font-size: clamp(4.2rem, 12.4vw, 14rem);
+        line-height: 0.72;
+        letter-spacing: -0.11em;
+        margin: 0;
+      }
+      .project {
+        align-self: flex-end;
+        font: clamp(1.6rem, 3vw, 3.6rem) var(--serif);
+        font-style: italic;
+        border-bottom: 2px solid;
+      }
+      .contact-links {
+        display: flex;
+        gap: 24px;
+        flex-wrap: wrap;
+        font: 10px var(--mono);
+      }
+      .contact-links a {
+        border-bottom: 1px solid #fff8;
+      }
+      .viewer {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        background: #050608ed;
+        color: #fff;
+        display: none;
+        padding: 25px;
+      }
+      .viewer.open {
+        display: grid;
+        grid-template-columns: 70px 1fr 70px;
+        align-items: center;
+      }
+      .viewer img {
+        max-width: 100%;
+        height: 83vh;
+        width: 100%;
+        object-fit: contain;
+      }
+      .close,
+      .viewnav,
+      .fullscreen {
+        background: none;
+        color: white;
+        border: 0;
+        cursor: pointer;
+      }
+      .close {
+        position: absolute;
+        right: 25px;
+        top: 22px;
+        font: 10px var(--mono);
+      }
+      .viewnav {
+        font-size: 26px;
+      }
+      .viewmeta {
+        position: absolute;
+        bottom: 20px;
+        left: 25px;
+        font: 10px var(--mono);
+      }
+      .fullscreen {
+        position: absolute;
+        right: 25px;
+        bottom: 20px;
+        font: 10px var(--mono);
+      }
+      @media (max-width: 700px) {
+        .nav {
+          padding: 18px;
+        }
+        .links {
+          display: none;
+        }
+        .hero {
+          padding: 92px 18px 18px;
+          grid-template-columns: 1fr;
+          min-height: 810px;
+        }
+        .hero h1 {
+          font-size: 25vw;
+        }
+        .hero-art {
+          min-height: 46vh;
+        }
+        .hero-foot {
+          left: 18px;
+          right: 18px;
+          bottom: 18px;
+        }
+        .intro {
+          padding: 16vh 18px 20vh;
+        }
+        .note {
+          left: 18px;
+          bottom: 32px;
+        }
+        .worlds {
+          grid-template-columns: 1fr;
+        }
+        .world {
+          min-height: 67vh;
+          padding: 22px;
+        }
+        .top {
+          padding: 95px 18px 25px;
+          display: block;
+        }
+        .top p {
+          margin-top: 20px;
+        }
+        .archive {
+          padding: 0 18px 75px;
+          gap: 9px;
+        }
+        .d1,
+        .d4,
+        .p1,
+        .p5 {
+          grid-column: span 12;
+        }
+        .d2,
+        .d3,
+        .p2,
+        .p3 {
+          grid-column: span 6;
+          margin-top: 0;
+        }
+        .d5 {
+          grid-column: span 8;
+        }
+        .d6 {
+          grid-column: span 4;
+          margin-top: 5vw;
+        }
+        .p4 {
+          grid-column: span 12;
+          margin-top: 0;
+        }
+        .photo .top {
+          padding-top: 100px;
+        }
+        .feed {
+          padding: 65px 18px;
+        }
+        .feedhead {
+          display: block;
+        }
+        .follow {
+          display: inline-block;
+          margin-top: 20px;
+        }
+        .about {
+          padding: 100px 18px;
+          grid-template-columns: 1fr;
+        }
+        .contact {
+          padding: 21vw 18px 22px;
+          min-height: 70vh;
+        }
+        .project {
+          align-self: flex-start;
+        }
+        .viewer.open {
+          grid-template-columns: 42px 1fr 42px;
+        }
+        .viewer {
+          padding: 10px;
+        }
+        .viewer img {
+          height: 76vh;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="nav">
+      <a class="logo" href="#top">ZINZY.</a>
+      <div class="links">
+        <a href="#design">GRAPHIC DESIGN</a
+        ><a href="#photography">PHOTOGRAPHY</a><a href="#about">ABOUT</a
+        ><a href="#contact">CONTACT</a>
+      </div>
+    </nav>
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy">
+          <span class="small">PORTFOLIO / 2026</span>
+          <h1>ZIN<span>ZY</span></h1>
+          <div class="role">GRAPHIC DESIGNER<br />/ PHOTOGRAPHER</div>
+        </div>
+        <div class="hero-art"></div>
+        <div class="hero-foot">
+          <span class="small">SCROLL TO ENTER —</span
+          ><span class="small">01 / CANADA</span>
+        </div>
+      </section>
+      <section class="intro">
+        <h2>TWO CREATIVE WORLDS.<br /><em>ONE VISUAL IDENTITY.</em></h2>
+        <p class="note">
+          A living archive of visuals, moments and stories by ZINZY. Choose a
+          world — or stay a while.
+        </p>
+      </section>
+      <section class="worlds">
+        <a href="#design" class="world gd"
+          ><span class="number">01 / 02</span>
+          <h2>GRAPHIC<br />DESIGN</h2>
+          <p>VISUALS / DIGITAL ART / TYPOGRAPHY / ART DIRECTION</p>
+          <span class="go">ENTER THE ARCHIVE</span></a
+        ><a href="#photography" class="world ph"
+          ><span class="number">02 / 02</span>
+          <h2>PHOTO<br />GRAPHY</h2>
+          <p>PEOPLE / MOMENTS / STORIES</p>
+          <span class="go">ENTER THE LENS</span></a
+        >
+      </section>
+      <section id="design" class="design">
+        <div class="top">
+          <div>
+            <span class="small tag">01 / SELECTED WORK</span>
+            <h2>GRAPHIC<br />DESIGN</h2>
+          </div>
+          <p>VISUALS / DIGITAL ART<br />TYPOGRAPHY / ART DIRECTION</p>
+        </div>
+        <div class="archive" id="designArchive"></div>
+      </section>
+      <section class="feed dark">
+        <div class="feedhead">
+          <div>
+            <span class="small tag">SOCIAL PREVIEW / DESIGN</span>
+            <h2>FROM THE<br />DESIGN DESK</h2>
+          </div>
+          <a
+            class="follow"
+            href="https://www.instagram.com/zinzy.gfx/"
+            target="_blank"
+            rel="noopener"
+            >FOLLOW @ZINZY.GFX ↗</a
+          >
+        </div>
+        <div
+          class="elfsight-app-24981074-bf60-4948-802f-5464ad593da6"
+          data-elfsight-app-lazy
+        ></div>
+        <p class="disclaimer">
+          SOCIAL PREVIEW ARCHITECTURE — connect verified image, caption and
+          direct Instagram permalink in the feed configuration. Each item links
+          straight to Instagram.
+        </p>
+      </section>
+      <section id="photography" class="photo">
+        <div class="top">
+          <div>
+            <span class="small tag">02 / SELECTED WORK</span>
+            <h2>PHOTO<br />GRAPHY</h2>
+          </div>
+          <p>PEOPLE / MOMENTS / STORIES<br />AN OPEN VISUAL DIARY</p>
+        </div>
+        <div class="archive" id="photoArchive"></div>
+      </section>
+      <section class="feed">
+        <div class="feedhead">
+          <div>
+            <span class="small tag">SOCIAL PREVIEW / PHOTOGRAPHY</span>
+            <h2>FROM THE LENS</h2>
+          </div>
+          <a
+            class="follow"
+            id="photoFollow"
+            href="#"
+            target="_blank"
+            rel="noopener"
+            >FOLLOW THE PHOTOGRAPHY ↗</a
+          >
+        </div>
+        <div class="track" id="photoFeed"></div>
+        <p class="disclaimer">
+          THE PHOTOGRAPHY FEED IS INDEPENDENT FROM @ZINZY.GFX. Add its profile
+          URL and verified post permalinks in the configuration.
+        </p>
+      </section>
+      <section id="about" class="about">
+        <h2>ABOUT<br />ZINZY</h2>
+        <p>
+          ZINZY is a creative that manifests his own perception of sports and pop culture
+          through graphic design and photography.<small
+            >SPORTS / EDITORIAL / PORTRAITURE / DIGITAL ART<br /><br />BASED IN
+            CANADA, AVAILABLE EVERYWHERE.</small
+          >
+        </p>
+      </section>
+      <section id="contact" class="contact">
+        <h2>LET'S MAKE<br />SOMETHING.</h2>
+        <a class="project" href="mailto:hello@zinzygfx.com"
+          >START A PROJECT ↗</a
+        >
+        <div class="contact-links">
+          <a href="https://www.instagram.com/zinzy.gfx/" target="_blank"
+            >@ZINZY.GFX</a
+          ><a id="photoContact" href="#" target="_blank" rel="noopener"
+            >zinzy.flim</a
+          ><span>© ZINZY 2026</span>
+        </div>
+      </section>
+    </main>
+    <div class="viewer" id="viewer">
+      <button class="close" onclick="closeViewer()">CLOSE [ESC]</button
+      ><button class="viewnav" onclick="change(-1)">←</button
+      ><img id="viewImage" alt="" /><button class="viewnav" onclick="change(1)">
+        →</button
+      ><span class="viewmeta" id="viewMeta"></span
+      ><button class="fullscreen" onclick="viewImage.requestFullscreen()">
+        FULLSCREEN ↗
+      </button>
+    </div>
+    <script>
+      const graphicDesignInstagramUrl = "https://www.instagram.com/zinzy.gfx/";
+      const photographyInstagramUrl = "https://www.instagram.com/zinzy.flim/";
+      const photographyElfsightAppId = "9becdecb-959f-4d0a-8e5b-a6e724946304";
+      const design = [
+        ["ADIDAS GENERATION", "SPORTS GRAPHIC / 2026", "zinzy1.jpg", "d1"],
+        ["ONE OF ONE", "DIGITAL ART / 2026", "zinzy2.jpg", "d2"],
+        ["COVER BOYS", "TYPOGRAPHY / 2026", "zinzy3.jpg", "d3"],
+        ["SPIDERMEN", "ART DIRECTION / 2026", "zinzy4.jpg", "d4"],
+        ["KAWHI LEONARD", "POSTER / 2026", "zinzy5.jpg", "d5"],
+        ["GIANNIS ANTETOKUMPO", "SPORTS GRAPHIC / 2026", "zinzy6.jpg", "d6"],
+      ];
+      const photos = [
+        ["RED ROOM", "PORTRAIT / 2026", "photo1.jpg", "p1"],
+        ["STILL", "EDITORIAL / 2026", "photo2.jpg", "p2"],
+        ["SUNDAY", "LIFESTYLE / 2026", "photo3.jpg", "p3"],
+        ["MOVEMENT", "FASHION / 2026", "photo4.jpg", "p4"],
+        ["CITY IN BLUE", "STREET / 2026", "photo5.jpg", "p5"],
+        ["UNTITLED", "PHOTOGRAPHY / 2026", "photo6.jpg", "p3"],
+      ];
+      const heroSlides = [...design, ...photos];
+      let heroSlideIndex = 0;
+
+      function startHeroSlideshow() {
+        const heroArt = document.querySelector(".hero-art");
+        heroArt.innerHTML = heroSlides
+          .map(
+            (item, index) =>
+              `<span class="hero-slide${index === 0 ? " active" : ""}" style="background-image:url('${item[2]}')" aria-hidden="true"></span>`,
+          )
+          .join("");
+
+        window.setInterval(() => {
+          const slides = heroArt.querySelectorAll(".hero-slide");
+          slides[heroSlideIndex].classList.remove("active");
+          heroSlideIndex = (heroSlideIndex + 1) % slides.length;
+          slides[heroSlideIndex].classList.add("active");
+        }, 5000);
+      }
+      let work = [],
+        current = 0;
+      function archive(data, id) {
+        document.querySelector(id).innerHTML = data
+          .map(
+            (x, i) =>
+              `<button class="piece ${x[3]}" onclick="openView('${id}',${i})"><img loading="lazy" src="${x[2]}" alt="${x[0]}"><span class="meta">${x[0]} — ${x[1]}</span></button>`,
+          )
+          .join("");
+      }
+      function openView(id, i) {
+        work = id === "#designArchive" ? design : photos;
+        current = i;
+        draw();
+        viewer.classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+      function draw() {
+        let x = work[current];
+        viewImage.src = x[2];
+        viewImage.alt = x[0];
+        viewMeta.textContent = `${current + 1} / ${work.length} — ${x[0]} / ${x[1]}`;
+      }
+      function change(n) {
+        current = (current + n + work.length) % work.length;
+        draw();
+      }
+      function closeViewer() {
+        viewer.classList.remove("open");
+        document.body.style.overflow = "";
+      }
+      function feed(data, id) {
+        document.querySelector(id).innerHTML = data
+          .map(
+            (x) =>
+              `<a class="post" href="${x.url}" target="_blank"><img src="${x.image}" alt="${x.caption}"><span>${x.caption}</span></a>`,
+          )
+          .join("");
+      }
+      archive(design, "#designArchive");
+      archive(photos, "#photoArchive");
+      startHeroSlideshow();
+      photoFollow.href = photoContact.href = photographyInstagramUrl;
+      if (photographyElfsightAppId) {
+        photoFeed.className = "elfsight-app-" + photographyElfsightAppId;
+        photoFeed.dataset.elfsightAppLazy = "";
+      } else {
+        photoFeed.innerHTML =
+          '<p class="small">PHOTOGRAPHY ELFSIGHT WIDGET ID TO BE CONNECTED.</p>';
+      }
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeViewer();
+        if (viewer.classList.contains("open") && e.key === "ArrowRight")
+          change(1);
+        if (viewer.classList.contains("open") && e.key === "ArrowLeft")
+          change(-1);
+      });
+    </script>
+    <script src="https://elfsightcdn.com/platform.js" async></script>
+  </body>
+</html>
